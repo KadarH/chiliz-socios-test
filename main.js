@@ -1,21 +1,4 @@
-/*
- * Your program must print string with the number of years and months and the total number of days between the dates.
- * Dates are provided in dd.mm.yyyy format.
- * You are not allowed to plug in JS libraries such as moment.js or date-fns directly into the code. All code need to be written in this file.
- * 
- * Result must be shown as a string in years, months and total days. If years or months are 0, then it should not be displayed in the output.
- *
- * Example:
- * Input: ['01.01.2000', '01.01.2016']
- * Output:
- * '16 years, total 5844 days'
- *
- * Example 2:
- * Input: ['01.11.2015', '01.02.2017']
- *
- * Output:
- * '1 year, 3 months, total 458 days'
-*/
+
 const dates = [
     ['01.01.2000', '01.01.2016'],
     ['01.01.2016', '01.08.2016'],
@@ -30,7 +13,6 @@ const dates = [
 
 // Receive string of dates one after each other
 function outputDate(dates) {
-
     const difference = {
         inDays: (d1, d2) => {
             return Math.floor((d2.getTime() - d1.getTime()) / (24 * 3600 * 1000));
@@ -43,15 +25,15 @@ function outputDate(dates) {
         }
     }
 
-    const date0 = dates[0].split('.');
-    const date1 = dates[1].split('.');
-    var d1 = new Date(date0[1] + '-' + date0[0] + '-' + date0[2]);
-    var d2 = new Date(date1[1] + '-' + date1[0] + '-' + date1[2]);
+    let date0 = dates[0].split('.');
+    let date1 = dates[1].split('.');
+    date0 = new Date(date0[1] + '-' + date0[0] + '-' + date0[2]);
+    date1 = new Date(date1[1] + '-' + date1[0] + '-' + date1[2]);
 
-    const days = difference.inDays(d1, d2);
-    const months = difference.inMonths(d1, d2);
-    const years = difference.inYears(d1, d2);
-
+    const days = difference.inDays(date0, date1);
+    const months = difference.inMonths(date0, date1);
+    const years = difference.inYears(date0, date1);
+             
     return (years ? years + " year" + (years > 1 ? "s" : "") : "")
         + (months % 12 > 0 && (days !== 30 || days === 0) ? ((years ? ", " : "") + (months % 12)) + (months % 12 == 1 ? " month" : " months") : "")
         + (days > 1 && days !== 30 ? ", " : "")
